@@ -2,6 +2,14 @@ let bossHp = 100;
 const maxAttempts = 3;
 let attempts = 0;
 
+const bossReplies = [
+    "それが君の意見か？甘いね。",
+    "もっとしっかり考えて発言しろ。",
+    "その程度で私を倒せると思うか？",
+    "まだまだだな。",
+    "君の意見には説得力がない。"
+];
+
 function submitOpinion() {
     const userInput = document.getElementById('userInput').value;
     if (!userInput) {
@@ -18,6 +26,12 @@ function submitOpinion() {
     const resultElement = document.getElementById('result');
     resultElement.textContent = `意見のスコア: ${score} ポイント | 上司のHP: ${bossHp > 0 ? bossHp : 0}`;
     resultElement.classList.remove('hidden');
+
+    // 上司の言い返し
+    const bossReply = bossReplies[Math.floor(Math.random() * bossReplies.length)];
+    const bossReplyElement = document.getElementById('bossReply');
+    bossReplyElement.textContent = `上司: ${bossReply}`;
+    bossReplyElement.classList.remove('hidden');
 
     // ゲームの終了条件
     if (bossHp <= 0) {
@@ -37,4 +51,5 @@ function resetGame() {
     attempts = 0;
     document.getElementById('bossHp').textContent = bossHp;
     document.getElementById('result').classList.add('hidden');
+    document.getElementById('bossReply').classList.add('hidden');
 }
